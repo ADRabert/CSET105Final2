@@ -11,31 +11,28 @@ const questions = [
   { q: "What do bees make?", options: ["Butter", "Milk", "Cheese", "Honey"], answer: 3 }
 ];
 
-let current = 0;
-let score = 0;
+let current = 0, score = 0;
 
 function loadQuestion() {
+	document.getElementById("questionCounter").textContent = "Question " + Number(current + 1) + " of " + questions.length;
   document.getElementById("question").textContent = questions[current].q;
   const optionsLabel = document.getElementsByClassName("options");
-  optionsLabel.innerHTML = "";
-  let labelText = options.join(", ")
- optionsLabel.textContent = labelText
   questions[current].options.forEach((option, i) => {
-    optionsLabel.textContent = option;
-    optionsLabel.appendChild(btn);
+		const optionsText = document.createElement("p");
+    optionsText.textContent = option;
+    optionsLabel[i].appendChild(optionsText);
   });
 }
 
 function checkAnswer(selected) {
-  if (selected === questions[current].answer) 
-    score++;
-  current++;
-  if (current < questions.length) {
-    loadQuestion();
-  } 
-  else{
-    document.getElementById("options").innerHTML = "";
-    document.getElementById("result").textContent = `You scored ${score} out of ${questions.length}`;
+	selected.checked = false;
+	const optionsLabel = document.getElementsByClassName("options");
+	for (let optionLabel of optionsLabel) optionLabel.getElementsByTagName("p")[0].remove();
+  if (selected.value == questions[current].answer) score++;
+  if (++current < questions.length) loadQuestion();
+  else {
+		document.getElementById("container").remove();
+    document.getElementById("result").textContent = `You scored ${score} out of ${questions.length}.`;
   }
 }
 
