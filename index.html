@@ -1,40 +1,21 @@
-<html>
-<head>
+<html><head>
 	<link href="assets/style.css" rel="stylesheet">
-	<title>Quiz</title>
-</head>
-<body>
-
-<div>
-
-<h2 id="questionCounter">Question 1/10</h2>
-<h2 id="question">Insert Question Here?</h2>
-
-<label class="options">
-	<input type="radio" name="q1" value="A" onclick="checkAnswer()">
-</label>
-<br>
-
-<label class="options">
-	<input type="radio" name="q1" value="B" onclick="checkAnswer()"> 
-</label>
-<br>
-
-<label class="options">
-	<input type="radio" name="q1" value="C" onclick="checkAnswer()"> 
-</label
-><br>
-
-<label class="options">
-	<input type="radio" name="q1" value="D" onclick="checkAnswer()"> 
-</label>
-<br>
-
-<div id="result"></div>
-
-</div>
-
+	<title>The CSET Freshman Quiz</title>
+</head><body>
+	<div id="container">
+		<h2 id="questionCounter"></h2>
+		<h1 id="question"></h1>
+		<form class="options">
+			<div class="option">
+				<input name="radio" type="radio" value="0" onclick="activateSubmit(this.value)">
+			</div><div class="option">
+				<input name="radio" type="radio" value="1" onclick="activateSubmit(this.value)">
+			</div><div class="option">
+				<input name="radio" type="radio" value="2" onclick="activateSubmit(this.value)">
+			</div><div class="option">
+				<input name="radio" type="radio" value="3" onclick="activateSubmit(this.value)">
+			</div>
+		</form>
+	</div>
+</body></html>
 <script src="assets/script.js"></script>
-
-</body>
-</html>
