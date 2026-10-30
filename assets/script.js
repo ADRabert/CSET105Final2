@@ -10,33 +10,43 @@ const questions = [
   { q: "What is the biggest animal on Earth?", options: ["Giant Squid", "Megalodon", "Blue Whale", "Whale Shark"], answer: 2 },
   { q: "What do bees make?", options: ["Butter", "Milk", "Cheese", "Honey"], answer: 3 }
 ];
-
-let current = 0;
-let score = 0;
-
-function loadQuestion() {
+let current = 0, score = 0;
+const loadQuestion = () => {
+	document.getElementById("questionCounter").textContent = "Question " + Number(current + 1) + " of " + questions.length;
   document.getElementById("question").textContent = questions[current].q;
-  const optionsLabel = document.getElementsByClassName("options");
-  optionsLabel.innerHTML = "";
-  let labelText = options.join(", ")
- optionsLabel.textContent = labelText
+  const optionElems = document.getElementsByClassName("option");
   questions[current].options.forEach((option, i) => {
-    optionsLabel.textContent = option;
-    optionsLabel.appendChild(btn);
+		const optionsText = document.createElement("label");
+    optionsText.for = "radio", optionsText.textContent = option;
+    optionElems[i].appendChild(optionsText);
   });
-}
-
-function checkAnswer(selected) {
-  if (selected === questions[current].answer) 
-    score++;
-  current++;
-  if (current < questions.length) {
-    loadQuestion();
-  } 
-  else{
-    document.getElementById("options").innerHTML = "";
-    document.getElementById("result").textContent = `You scored ${score} out of ${questions.length}`;
+}, checkAnswer = (selected) => {
+	document.getElementById("submit").remove();
+	document.getElementsByName("radio")[selected].checked = false;
+	const optionsLabel = document.getElementsByTagName("label");
+	for (let optionLabel of optionsLabel) optionLabel.remove();
+  if (selected == questions[current].answer) score++;
+  if (++current < questions.length) loadQuestion();
+  else {
+		const resultField = document.createElement("div");
+		resultField.id = "result";
+		const resultText = document.createElement("h1");
+		resultText.textContent = "You scored " + score + " out of " + questions.length + ".";
+		resultField.appendChild(resultText);
+		const resultRedo = document.createElement("button");
+		resultRedo.id = "restart", resultRedo.textContent = "Restart";
+		resultRedo.setAttribute("onclick", "location.reload()");
+		resultField.appendChild(resultRedo);
+		document.getElementById("container").remove();
+		document.body.appendChild(resultField);
   }
+}, activateSubmit = (selected) => {
+	const submit = document.getElementById("submit");
+	if (!submit) {
+		const submitBtn = document.createElement("button");
+		submitBtn.id = "submit", submitBtn.textContent = "Submit", submitBtn.value = selected;
+		submitBtn.setAttribute("onclick", "checkAnswer(this.value)");
+		document.getElementById("container").append(submitBtn);
+	} else submit.value = selected;
 }
-
 loadQuestion();
