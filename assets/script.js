@@ -14,17 +14,17 @@ let current = 0, score = 0;
 const loadQuestion = () => {
 	document.getElementById("questionCounter").textContent = "Question " + Number(current + 1) + " of " + questions.length;
   document.getElementById("question").textContent = questions[current].q;
-  const optionElems = document.getElementsByClassName("option");
+  const optionsLabel = document.getElementsByClassName("option");
   questions[current].options.forEach((option, i) => {
 		const optionsText = document.createElement("label");
     optionsText.for = "radio", optionsText.textContent = option;
-    optionElems[i].appendChild(optionsText);
+    optionsLabel[i].appendChild(optionsText);
   });
 }, checkAnswer = (selected) => {
 	document.getElementById("submit").remove();
 	document.getElementsByName("radio")[selected].checked = false;
-	const optionsLabel = document.getElementsByTagName("label");
-	for (let optionLabel of optionsLabel) optionLabel.remove();
+	const optionsLabel = document.getElementsByClassName("option");
+	for (let optionLabel of optionsLabel) optionLabel.getElementsByTagName("label")[0].remove();
   if (selected == questions[current].answer) score++;
   if (++current < questions.length) loadQuestion();
   else {
