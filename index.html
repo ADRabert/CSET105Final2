@@ -3,24 +3,19 @@
 	<title>Quiz</title>
 </head><body>
 	<div id="container">
-		<h2 id="questionCounter">Question 1/10</h2>
-		<h2 id="question">Insert Question Here?</h2>
-		<label class="options">
-			<input type="radio" value="0" onclick="checkAnswer(this)">
-		</label>
-		<br>
-		<label class="options">
-			<input type="radio" value="1" onclick="checkAnswer(this)"> 
-		</label>
-		<br>
-		<label class="options">
-			<input type="radio" value="2" onclick="checkAnswer(this)"> 
-		</label>
-		<br>
-		<label class="options">
-			<input type="radio" value="3" onclick="checkAnswer(this)"> 
-		</label>
+		<h2 id="questionCounter"></h2>
+		<h1 id="question"></h1>
+		<form class="options">
+			<div class="option">
+				<input name="radio" type="radio" value="0" onclick="activateSubmit(this.value)">
+			</div><div class="option">
+				<input name="radio" type="radio" value="1" onclick="activateSubmit(this.value)">
+			</div><div class="option">
+				<input name="radio" type="radio" value="2" onclick="activateSubmit(this.value)">
+			</div><div class="option">
+				<input name="radio" type="radio" value="3" onclick="activateSubmit(this.value)">
+			</div>
+		</form>
 	</div>
-	<div id="result"></div>
 </body></html>
 <script src="assets/script.js"></script>
